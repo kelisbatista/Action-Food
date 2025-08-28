@@ -1,16 +1,12 @@
-# actionfood
+# Action Food
 
-A new Flutter project.
+Um projeto flutter para trabalho de projeto integrador
 
-## Getting Started
+# Informações
 
-This project is a starting point for a Flutter application.
+Alunos: João Belladona, Keli Batista, Larissa Serres, Pedro Santos, Deborah Rocha.
 
-A few resources to get you started if this is your first Flutter project:
+Os passos serão dividos entre os integrantes, para acompanhar, eles estão dividos na área "Actions/Ações".
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+O desenvolvimento do projeto será feito com Flutter, usando o Firebase para Back-end e Banco de Dados.
