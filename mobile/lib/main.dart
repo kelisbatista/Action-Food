@@ -1,3 +1,4 @@
+import 'package:action_food/tela_inicial.dart';
 import 'package:flutter/material.dart';
 import 'pagina_login.dart';
 
@@ -12,7 +13,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/',
       routes: {
-        '/': (context) => PaginaLogin(),
+        '/': (context) => TelaInicial(),
+        '/login': (context) => PaginaLogin(),
       }
     );
   }
