@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 
 class PaginaLogin extends StatelessWidget{
+  const PaginaLogin({super.key});
 
+
+  @override
   Widget build(BuildContext context){
     return Scaffold(
       backgroundColor: Colors.orange[500],
-      
+      appBar: AppBar(
+        backgroundColor: Colors.orange[500],
+      ),
       body:
       Center(
         child:
@@ -58,14 +63,14 @@ class PaginaLogin extends StatelessWidget{
             onPressed: () {
               // Ação ao pressionar o botão de login
             },
-            child: 
-            Text('Login'),
             style: ElevatedButton.styleFrom(
               backgroundColor: Color.fromRGBO(249, 225, 75 , 100),
               foregroundColor: Colors.black,
               fixedSize: Size(250, 50),
               textStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),  
             ),
+            child: 
+            Text('Login'),
           )
         ],
       ),        

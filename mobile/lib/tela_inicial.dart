@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class TelaInicial extends StatelessWidget{
+  const TelaInicial({super.key});
 
+
+  @override
   Widget build(BuildContext context){
     return Scaffold(
       backgroundColor: Colors.orange[500],
@@ -21,16 +24,14 @@ class TelaInicial extends StatelessWidget{
             
             ),
           ),
-          Container(
-            child: Text(
-              'Action Food',
-              textAlign: TextAlign.center,  
-              style: TextStyle(
-                fontSize: 40,
-                color: const Color.fromARGB(255, 255, 216, 99),
-                fontWeight: FontWeight.bold,
-
-              ),
+          Text(
+            'Action Food',
+            textAlign: TextAlign.center,  
+            style: TextStyle(
+              fontSize: 40,
+              color: const Color.fromARGB(255, 255, 216, 99),
+              fontWeight: FontWeight.bold,
+          
             ),
           ),
           ],
@@ -48,7 +49,7 @@ class TelaInicial extends StatelessWidget{
                     textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   onPressed: () {
-                    Navigator.pushNamed(context, '');
+                    Navigator.pushNamed(context, '/cadastrar');
                   },
                   child: Text('Cadastrar-se'),
                 ),
