@@ -18,7 +18,8 @@ class PaginaLogin extends StatelessWidget{
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset('assets/logoaction.png', width: 200, height: 200,),            
+          
+          Image.asset('assets/logoaction.png', width: 200, height: 200),            
         
           Column(
             children: [
@@ -32,7 +33,7 @@ class PaginaLogin extends StatelessWidget{
                     ),
                     prefixIcon: Icon(Icons.email),
                     labelText: 'Email',
-                    fillColor: Colors.white,
+                    fillColor: Colors.orange[100],
                     filled: true,
                   ),
                 ),
@@ -48,7 +49,7 @@ class PaginaLogin extends StatelessWidget{
                     ),
                     prefixIcon: Icon(Icons.lock),
                     labelText: 'Senha',
-                    fillColor: Colors.white,
+                    fillColor: Colors.orange[100],
                     filled: true,
                   ),
                 ),
@@ -61,6 +62,8 @@ class PaginaLogin extends StatelessWidget{
               // Ação ao pressionar o botão de login
             },
             style: ElevatedButton.styleFrom(
+              shadowColor: Colors.black,
+              elevation: 10,
               backgroundColor: Color.fromRGBO(249, 225, 75 , 100),
               foregroundColor: Colors.black,
               fixedSize: Size(250, 50),

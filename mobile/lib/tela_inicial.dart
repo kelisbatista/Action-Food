@@ -41,6 +41,8 @@ class TelaInicial extends StatelessWidget{
                 padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
+                    shadowColor: Colors.black,
+                    elevation: 10,
                     backgroundColor: Color.fromRGBO(249, 225, 75 , 100),
                     foregroundColor: Colors.black,
                     fixedSize: Size(250,50),
@@ -55,6 +57,8 @@ class TelaInicial extends StatelessWidget{
               
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
+                  shadowColor: Colors.black,
+                  elevation: 10,
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.black,
                   fixedSize: Size(250, 50),

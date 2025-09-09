@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => TelaInicial(),
         '/login': (context) => PaginaLogin(),
-        '/cadastrar': (context) => PaginaCadstro(),
+        '/cadastrar': (context) => PaginaCadastro(),
       }
     );
   }
