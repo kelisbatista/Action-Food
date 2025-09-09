@@ -17,13 +17,11 @@ class TelaInicial extends StatelessWidget{
           Column(
             children: [
               Container(
-            child: Container(
-              margin: EdgeInsets.only(top: 50),
-              child: 
-            Image.asset('assets/logoaction.png', width: 200, height: 200,),
-            
-            ),
-          ),
+                margin: EdgeInsets.only(top: 50),
+                child: 
+              Image.asset('assets/logoaction.png', width: 200, height: 200,),
+              
+              ),
           Text(
             'Action Food',
             textAlign: TextAlign.center,  

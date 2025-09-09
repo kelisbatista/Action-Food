@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class PaginaCadstro extends StatelessWidget{
+  const PaginaCadstro({super.key});
+
 
   @override
   Widget build(BuildContext context) {

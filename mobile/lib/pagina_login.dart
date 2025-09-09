@@ -18,10 +18,7 @@ class PaginaLogin extends StatelessWidget{
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-          child: 
-          Image.asset('assets/logoaction.png', width: 200, height: 200,)
-          ),            
+          Image.asset('assets/logoaction.png', width: 200, height: 200,),            
         
           Column(
             children: [
