@@ -10,45 +10,40 @@ class PaginaCadastro extends StatelessWidget{
       backgroundColor: Colors.orange[500],
       appBar: AppBar(
         backgroundColor: Colors.orange[500],
-        title: Text('Cadastro',
-        textAlign: TextAlign.center)
+        title: Text('Cadastro',),
+        centerTitle: true,
         ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
+      body: ListView(
+        children: [
             Image.asset('assets/logoaction.png', width: 200, height: 200,),
 
             Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: 
-                  TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      prefixIcon: Icon(Icons.person),
-                      labelText: 'Nome',
-                      fillColor: Colors.orange[100],
-                      filled: true,
-                    ),
+
+                Text('Cadastre seu login', 
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black ,
                   ),
                 ),
+
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: 
                   TextField(
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
                       prefixIcon: Icon(Icons.email),
-                      labelText: 'Email',
-                      fillColor: Colors.orange[100],
-                      filled: true,
+                      labelText: 'Email',)
+                    ),
+                  ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: 
+                  TextField(
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.lock),
+                      labelText: 'Senha',
                     ),
                   ),
                 ),
@@ -58,23 +53,72 @@ class PaginaCadastro extends StatelessWidget{
                   TextField(
                     obscureText: true,
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
                       prefixIcon: Icon(Icons.lock),
-                      labelText: 'Senha',
-                      fillColor: Colors.orange[100],
-                      filled: true,
+                      labelText: 'Confirmar Senha',
                     ),
                   ),
                 ),
+                SizedBox(height: 20),
+
+
+                Text('Dados Pessoais', 
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.person),
+                      labelText: 'Nome Completo',
+                    ),  
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.phone),
+                      labelText: 'Telefone',
+                    ),  
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.badge),
+                      labelText: 'CPF',
+                    ),  
+                  ),
+                ),
+
+                SizedBox(height: 20),
+
+                ElevatedButton(
+                  onPressed: () {
+                    // Ação ao pressionar o botão de cadastro
+
+
+                    Navigator.pushNamed(context, '/principal');
+                  },
+                  child: 
+                  Text('Cadastrar'),
+                )
+
               ],
             ),
           ],
         ),
-      ),
-
     );
-
   }
 }

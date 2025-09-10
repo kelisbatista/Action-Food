@@ -27,7 +27,7 @@ class TelaInicial extends StatelessWidget{
             textAlign: TextAlign.center,  
             style: TextStyle(
               fontSize: 40,
-              color: const Color.fromARGB(255, 255, 216, 99),
+              color: Colors.black,
               fontWeight: FontWeight.bold,
           
             ),
