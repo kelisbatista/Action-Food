@@ -59,7 +59,7 @@ class PaginaLogin extends StatelessWidget{
 
           ElevatedButton(
             onPressed: () {
-              // Ação ao pressionar o botão de login
+            Navigator.pushNamed(context, '/principal');
             },
             style: ElevatedButton.styleFrom(
               shadowColor: Colors.black,

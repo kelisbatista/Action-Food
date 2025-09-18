@@ -1,5 +1,6 @@
 import 'package:action_food/pagina_cadastro.dart';
-import 'package:action_food/tela_inicial.dart';
+import 'package:action_food/pagina_inicial.dart';
+import 'package:action_food/pagina_principal.dart';
 import 'package:flutter/material.dart';
 import 'pagina_login.dart';
 
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => TelaInicial(),
         '/login': (context) => PaginaLogin(),
         '/cadastrar': (context) => PaginaCadastro(),
-        '/principal': (context) => TelaInicial(),
+        '/principal': (context) => PaginaPrincipal(),
       }
     );
   }
