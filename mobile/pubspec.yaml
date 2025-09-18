@@ -25,11 +25,12 @@ flutter:
 
   assets:
     - assets/logoaction.png
+    - assets/splashaction.png
 
 # Splash Screen
 flutter_native_splash:
   color: "#FFA500"
-  image: "assets/logoaction.png"
+  image: "assets/splashaction.png"
   android_12:
-      image: "assets/logoaction.png"
+      image: "assets/splashaction.png"
       android: true
