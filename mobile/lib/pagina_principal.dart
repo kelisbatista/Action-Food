@@ -36,12 +36,29 @@ class PaginaPrincipal extends StatelessWidget {
               color: Colors.black ,
             ),
             ),
+            SizedBox(height: 20),
 
-            
-          
-          ],
-        ),
+
+                  Estabs("Fulano", "Comida"),
+                ],
+              ),
       ),
+    );
+  }
+}
+
+class Estabs extends StatelessWidget {
+
+  final String nomeEstab;
+  final String descricaoEstab;
+
+  const Estabs(this.nomeEstab, this.descricaoEstab, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 400, height: 100,
+      color: Colors.white,
     );
   }
 }
