@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "304053859403",
+    "project_id": "actionfood-e77c4",
+    "storage_bucket": "actionfood-e77c4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:304053859403:android:a8e9a8ff9e5e7893ce49ce",
+        "android_client_info": {
+          "package_name": "br.edu.iffar.action_food"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3wc3_lRAYO4Cl1k07ESQkKK-TkfjAado"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
