@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class PaginaPrincipal extends StatefulWidget {
-  const PaginaPrincipal({super.key});
+class Principal extends StatefulWidget {
+  const Principal({super.key});
 
   @override
-  State<PaginaPrincipal> createState() => _PaginaPrincipalState();
+  State<Principal> createState() => _PrincipalState();
 }
 
-class _PaginaPrincipalState extends State<PaginaPrincipal> {
+class _PrincipalState extends State<Principal> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +60,8 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
           ],
         ),
       ),
-      body: Builder( // <-- Builder resolve o contexto do Scaffold
+      body: Builder(
+        // <-- Builder resolve o contexto do Scaffold
         builder: (context) => Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -89,7 +90,6 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
                 ),
               ),
               SizedBox(height: 20),
-
               Estabs("assets/logoaction.png", "Fulano", "Comida"),
               Estabs("assets/logoaction.png", "Ciclano", "Lanches"),
             ],
@@ -105,7 +105,8 @@ class Estabs extends StatelessWidget {
   final String nomeEstab;
   final String descricaoEstab;
 
-  const Estabs(this.imagemEstab, this.nomeEstab, this.descricaoEstab, {super.key});
+  const Estabs(this.imagemEstab, this.nomeEstab, this.descricaoEstab,
+      {super.key});
 
   @override
   Widget build(BuildContext context) {

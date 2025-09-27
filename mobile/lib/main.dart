@@ -1,8 +1,8 @@
-import 'package:action_food/pagina_cadastro.dart';
-import 'package:action_food/pagina_inicial.dart';
-import 'package:action_food/pagina_principal.dart';
+import 'package:action_food/view/cadastro.dart';
+import 'package:action_food/view/pagina_inicial.dart';
+import 'package:action_food/view/principal.dart';
 import 'package:flutter/material.dart';
-import 'pagina_login.dart';
+import 'view/login.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -43,9 +43,9 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => TelaInicial(),
-          '/login': (context) => PaginaLogin(),
-          '/cadastrar': (context) => PaginaCadastro(),
-          '/principal': (context) => PaginaPrincipal(),
+          '/login': (context) => Login(),
+          '/cadastrar': (context) => Cadastro(),
+          '/principal': (context) => Principal(),
         });
   }
 }

@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 
-class TelaInicial extends StatelessWidget{
+class TelaInicial extends StatefulWidget {
   const TelaInicial({super.key});
 
-
   @override
-  Widget build(BuildContext context){
+  State<TelaInicial> createState() => _TelaInicialState();
+}
+
+class _TelaInicialState extends State<TelaInicial> {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.orange[500],
-      body:
-       Column(
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         spacing: 50,
@@ -18,23 +21,23 @@ class TelaInicial extends StatelessWidget{
             children: [
               Container(
                 margin: EdgeInsets.only(top: 50),
-                child: 
-              Image.asset('assets/logoaction.png', width: 200, height: 200,),
-              
+                child: Image.asset(
+                  'assets/logoaction.png',
+                  width: 200,
+                  height: 200,
+                ),
               ),
-          Text(
-            'Action Food',
-            textAlign: TextAlign.center,  
-            style: TextStyle(
-              fontSize: 40,
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-          
-            ),
+              Text(
+                'Action Food',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 40,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
-          ],
-          ),
-          
           Column(
             children: [
               Padding(
@@ -43,10 +46,11 @@ class TelaInicial extends StatelessWidget{
                   style: ElevatedButton.styleFrom(
                     shadowColor: Colors.black,
                     elevation: 10,
-                    backgroundColor: Color.fromRGBO(249, 225, 75 , 100),
+                    backgroundColor: Color.fromRGBO(249, 225, 75, 100),
                     foregroundColor: Colors.black,
-                    fixedSize: Size(250,50),
-                    textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    fixedSize: Size(250, 50),
+                    textStyle:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   onPressed: () {
                     Navigator.pushNamed(context, '/cadastrar');
@@ -54,7 +58,6 @@ class TelaInicial extends StatelessWidget{
                   child: Text('Cadastrar-se'),
                 ),
               ),
-              
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   shadowColor: Colors.black,
@@ -62,7 +65,8 @@ class TelaInicial extends StatelessWidget{
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.black,
                   fixedSize: Size(250, 50),
-                  textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  textStyle:
+                      TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 onPressed: () {
                   Navigator.pushNamed(context, '/login');
@@ -71,8 +75,8 @@ class TelaInicial extends StatelessWidget{
               ),
             ],
           ),
-      ],
+        ],
       ),
-      );
+    );
   }
 }
