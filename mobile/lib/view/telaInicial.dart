@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class TelaInicial extends StatefulWidget {
   const TelaInicial({super.key});
@@ -9,25 +10,37 @@ class TelaInicial extends StatefulWidget {
 
 class _TelaInicialState extends State<TelaInicial> {
   @override
+  void initState() {
+    super.initState();
+
+    // Se o usuário já estiver logado, redireciona direto para a principal
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.pushReplacementNamed(context, '/principal');
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.orange[500],
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        spacing: 50,
         children: [
           Column(
             children: [
               Container(
-                margin: EdgeInsets.only(top: 50),
+                margin: const EdgeInsets.only(top: 50),
                 child: Image.asset(
                   'assets/logoaction.png',
                   width: 200,
                   height: 200,
                 ),
               ),
-              Text(
+              const Text(
                 'Action Food',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -46,16 +59,16 @@ class _TelaInicialState extends State<TelaInicial> {
                   style: ElevatedButton.styleFrom(
                     shadowColor: Colors.black,
                     elevation: 10,
-                    backgroundColor: Color.fromRGBO(249, 225, 75, 100),
+                    backgroundColor: const Color.fromRGBO(249, 225, 75, 100),
                     foregroundColor: Colors.black,
-                    fixedSize: Size(250, 50),
-                    textStyle:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    fixedSize: const Size(250, 50),
+                    textStyle: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   onPressed: () {
                     Navigator.pushNamed(context, '/cadastrar');
                   },
-                  child: Text('Cadastrar-se'),
+                  child: const Text('Cadastrar-se'),
                 ),
               ),
               ElevatedButton(
@@ -64,14 +77,14 @@ class _TelaInicialState extends State<TelaInicial> {
                   elevation: 10,
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.black,
-                  fixedSize: Size(250, 50),
-                  textStyle:
-                      TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  fixedSize: const Size(250, 50),
+                  textStyle: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 onPressed: () {
                   Navigator.pushNamed(context, '/login');
                 },
-                child: Text('Ir para Login'),
+                child: const Text('Ir para Login'),
               ),
             ],
           ),
