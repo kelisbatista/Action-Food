@@ -1,4 +1,4 @@
-import 'package:action_food/pedidoService.dart';
+import 'package:action_food/view/PagEstabelecimento.dart';
 import 'package:action_food/view/cadastro.dart';
 import 'package:action_food/view/carrinho.dart';
 import 'package:action_food/view/login.dart';
@@ -30,6 +30,8 @@ class MyApp extends StatelessWidget {
         '/login': (_) => const Login(),
         '/principal': (_) => const Principal(),
         '/carrinho': (_) => Carrinho(itensCarrinho: []),
+        '/pagEstabelecimento': (_) => Pagestabelecimento(''),
+
       },
     );
   }
