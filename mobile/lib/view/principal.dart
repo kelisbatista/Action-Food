@@ -1,4 +1,5 @@
 import 'package:action_food/view/carrinho.dart';
+import 'package:action_food/view/configUsuario.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -65,17 +66,10 @@ class _PrincipalState extends State<Principal> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.person),
-              title: const Text('Perfil'),
-              onTap: () {
-                // Ação ao clicar em Perfil
-              },
-            ),
-            ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Configurações'),
               onTap: () {
-                // Ação ao clicar em Configurações
+                Navigator.pushReplacementNamed(context, '/configuracoes');
               },
             ),
             ListTile(

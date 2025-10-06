@@ -1,6 +1,6 @@
-import 'package:action_food/pedidoService.dart';
 import 'package:action_food/view/cadastro.dart';
 import 'package:action_food/view/carrinho.dart';
+import 'package:action_food/view/configUsuario.dart';
 import 'package:action_food/view/login.dart';
 import 'package:action_food/view/principal.dart';
 import 'package:action_food/view/telaInicial.dart';
@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
         '/login': (_) => const Login(),
         '/principal': (_) => const Principal(),
         '/carrinho': (_) => Carrinho(itensCarrinho: []),
+        '/configuracoes': (_) => ConfigUsuario(),
       },
     );
   }
