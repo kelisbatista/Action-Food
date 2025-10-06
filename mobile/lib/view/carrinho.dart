@@ -54,7 +54,8 @@ class _CarrinhoState extends State<Carrinho> {
       backgroundColor: Colors.orange[500],
       appBar: AppBar(
         title: const Text('Carrinho'),
-        actions: [
+        automaticallyImplyLeading: false,
+        leading:
           ElevatedButton(
             onPressed: () {
               Navigator.pushNamed(context, '/principal');
@@ -64,9 +65,8 @@ class _CarrinhoState extends State<Carrinho> {
               foregroundColor: Colors.black,
               elevation: 0,
             ),
-            child: const Text('Voltar'),
+            child: Icon(Icons.arrow_back, color: Colors.black, size: 25),
           ),
-        ],
       ),
       body: Column(
         children: [
