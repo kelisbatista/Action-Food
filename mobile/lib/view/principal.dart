@@ -66,25 +66,16 @@ class _PrincipalState extends State<Principal> {
               onTap: () => Navigator.pop(context),
             ),
             ListTile(
-<<<<<<< HEAD
               leading: const Icon(Icons.settings),
               title: const Text('Configurações'),
               onTap: () {
                 Navigator.pushReplacementNamed(context, '/configuracoes');
-=======
-              leading: const Icon(Icons.person),
-              title: const Text('Perfil'),
-              onTap: () {
-                // TODO: Implementar tela de perfil
               },
             ),
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Configurações'),
-              onTap: () {
-                // TODO: Implementar tela de configurações
->>>>>>> fa467f6c617cee058d5d26e12a3f7ed10b46eb1b
-              },
+              
             ),
             ListTile(
               leading: const Icon(Icons.shopping_cart),
