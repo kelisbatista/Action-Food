@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
-import 'package:action_food/view/PagEstabelecimento.dart';
->>>>>>> fa467f6c617cee058d5d26e12a3f7ed10b46eb1b
+import 'package:action_food/view/pagEstabelecimento.dart';
 import 'package:action_food/view/cadastro.dart';
 import 'package:action_food/view/carrinho.dart';
 import 'package:action_food/view/configUsuario.dart';
@@ -33,13 +30,9 @@ class MyApp extends StatelessWidget {
         '/cadastrar': (_) => const Cadastro(),
         '/login': (_) => const Login(),
         '/principal': (_) => const Principal(),
-        '/carrinho': (_) => Carrinho(itensCarrinho: []),
-<<<<<<< HEAD
-        '/configuracoes': (_) => ConfigUsuario(),
-=======
-        '/pagEstabelecimento': (_) => Pagestabelecimento(''),
-
->>>>>>> fa467f6c617cee058d5d26e12a3f7ed10b46eb1b
+        '/carrinho': (_) => const Carrinho(itensCarrinho: []),
+        '/configuracao': (_) => ConfigUsuario(),
+        '/pagEstabelecimento': (_) => PagEstabelecimento(''),
       },
     );
   }

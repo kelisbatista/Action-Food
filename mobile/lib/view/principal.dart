@@ -66,24 +66,10 @@ class _PrincipalState extends State<Principal> {
               onTap: () => Navigator.pop(context),
             ),
             ListTile(
-<<<<<<< HEAD
               leading: const Icon(Icons.settings),
               title: const Text('Configurações'),
               onTap: () {
-                Navigator.pushReplacementNamed(context, '/configuracoes');
-=======
-              leading: const Icon(Icons.person),
-              title: const Text('Perfil'),
-              onTap: () {
-                // TODO: Implementar tela de perfil
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Configurações'),
-              onTap: () {
-                // TODO: Implementar tela de configurações
->>>>>>> fa467f6c617cee058d5d26e12a3f7ed10b46eb1b
+                Navigator.pushNamed(context, '/configuracao');
               },
             ),
             ListTile(
@@ -149,8 +135,7 @@ class _PrincipalState extends State<Principal> {
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                            child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       }
 
                       if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
@@ -202,8 +187,7 @@ class Estabs extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, '/pagEstabelecimento',
-            arguments: idEstab);
+        Navigator.pushNamed(context, '/pagEstabelecimento', arguments: idEstab);
       },
       child: Container(
         decoration: BoxDecoration(

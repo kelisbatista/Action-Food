@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class Pagestabelecimento extends StatefulWidget{
+class PagEstabelecimento extends StatefulWidget {
   final String idEstab;
-  const Pagestabelecimento(this.idEstab, {super.key});
-  
+  const PagEstabelecimento(this.idEstab, {super.key});
+
   @override
-  State<Pagestabelecimento> createState() => _PagEstabelecimentoState();
+  State<PagEstabelecimento> createState() => _PagEstabelecimentoState();
 }
 
-class _PagEstabelecimentoState extends State<Pagestabelecimento>{
+class _PagEstabelecimentoState extends State<PagEstabelecimento> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,5 +41,5 @@ class _PagEstabelecimentoState extends State<Pagestabelecimento>{
         ],
       ),
     );
-    }   
   }
+}
