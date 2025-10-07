@@ -76,6 +76,8 @@ class _PrincipalState extends State<Principal> {
               leading: const Icon(Icons.settings),
               title: const Text('Configurações'),
               
+                Navigator.pushNamed(context, '/configuracao');
+              },
             ),
             ListTile(
               leading: const Icon(Icons.shopping_cart),
@@ -140,8 +142,7 @@ class _PrincipalState extends State<Principal> {
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                            child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       }
 
                       if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
@@ -193,8 +194,7 @@ class Estabs extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, '/pagEstabelecimento',
-            arguments: idEstab);
+        Navigator.pushNamed(context, '/pagEstabelecimento', arguments: idEstab);
       },
       child: Container(
         decoration: BoxDecoration(

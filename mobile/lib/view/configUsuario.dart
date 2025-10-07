@@ -115,14 +115,14 @@ class _ConfigUsuarioState extends State<ConfigUsuario> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.orange[500],
+      backgroundColor: Colors.orange[300],
       appBar: AppBar(
-        backgroundColor: Colors.orange[700],
+        backgroundColor: Colors.orange[300],
         title: const Text(
           'Configurações do Usuário',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Color.fromARGB(255, 9, 9, 9)),
         ),
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Color.fromARGB(255, 14, 14, 14)),
       ),
       body: _loading
           ? const Center(child: CircularProgressIndicator(color: Colors.white))
@@ -137,12 +137,17 @@ class _ConfigUsuarioState extends State<ConfigUsuario> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Icon(
+                      Icons.person_pin,
+                      size: 100,
+                      color: Color.fromARGB(255, 221, 132, 58),
+                    ),
                     const Text(
                       'Gerencie suas informações',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        color: Colors.orange,
+                        color: Color.fromARGB(255, 0, 0, 0),
                       ),
                     ),
                     const SizedBox(height: 30),
@@ -161,7 +166,7 @@ class _ConfigUsuarioState extends State<ConfigUsuario> {
                     ElevatedButton(
                       onPressed: _atualizarTelefone,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.orange[700],
+                        backgroundColor: Color.fromARGB(255, 221, 132, 58),
                         minimumSize: const Size(double.infinity, 45),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -189,7 +194,7 @@ class _ConfigUsuarioState extends State<ConfigUsuario> {
                     ElevatedButton(
                       onPressed: _atualizarSenha,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.orange[700],
+                        backgroundColor: Color.fromARGB(255, 221, 132, 58),
                         minimumSize: const Size(double.infinity, 45),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -201,13 +206,13 @@ class _ConfigUsuarioState extends State<ConfigUsuario> {
                       ),
                     ),
 
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 20),
 
                     // Excluir conta
                     ElevatedButton.icon(
                       onPressed: _excluirConta,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.redAccent,
+                        backgroundColor: const Color.fromARGB(255, 213, 35, 35),
                         minimumSize: const Size(double.infinity, 45),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -222,25 +227,6 @@ class _ConfigUsuarioState extends State<ConfigUsuario> {
                     ),
 
                     const SizedBox(height: 30),
-
-                    // Botão voltar
-                    ElevatedButton.icon(
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(context, '/principal');
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.grey[400],
-                        minimumSize: const Size(double.infinity, 45),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      icon: const Icon(Icons.arrow_back, color: Colors.black),
-                      label: const Text(
-                        'Voltar',
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
                   ],
                 ),
               ),

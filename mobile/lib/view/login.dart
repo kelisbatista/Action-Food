@@ -1,3 +1,4 @@
+import 'package:action_food/mostraErroAuth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -15,14 +16,14 @@ class _LoginState extends State<Login> {
   Future<void> login() async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailCtrl.text.trim(), password: senhaCtrl.text.trim());
-
-      if (!mounted) return; // garante que a tela ainda existe
+        email: emailCtrl.text.trim(),
+        password: senhaCtrl.text.trim(),
+      );
+      if (!mounted) return;
 
       Navigator.pushReplacementNamed(context, '/principal');
-    } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Erro ao logar: $e')));
+    } on FirebaseAuthException catch (e) {
+      mostrarErroAuth(context, e, 'login');
     }
   }
 

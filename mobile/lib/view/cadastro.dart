@@ -1,3 +1,4 @@
+import 'package:action_food/mostraErroAuth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -19,7 +20,10 @@ class _CadastroState extends State<Cadastro> {
   Future<void> cadastrar() async {
     try {
       final cred = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: emailCtrl.text.trim(), password: senhaCtrl.text.trim());
+        email: emailCtrl.text.trim(),
+        password: senhaCtrl.text.trim(),
+      );
+
       final uid = cred.user!.uid;
 
       await FirebaseFirestore.instance.collection('usuarios').doc(uid).set({
@@ -30,10 +34,10 @@ class _CadastroState extends State<Cadastro> {
         'createdAt': FieldValue.serverTimestamp(),
       });
 
+      if (!mounted) return;
       Navigator.pushReplacementNamed(context, '/principal');
-    } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Erro ao cadastrar: $e')));
+    } on FirebaseAuthException catch (e) {
+      mostrarErroAuth(context, e, 'cadastro');
     }
   }
 
@@ -43,7 +47,7 @@ class _CadastroState extends State<Cadastro> {
       backgroundColor: Colors.orange[500],
       appBar: AppBar(
         backgroundColor: Colors.orange[500],
-        title: const Text('Cadastro'),
+        title: const Text('Área de Cadastro'),
         centerTitle: true,
       ),
       body: ListView(
@@ -51,7 +55,7 @@ class _CadastroState extends State<Cadastro> {
           Image.asset('assets/logoaction.png', width: 200, height: 200),
           Column(
             children: [
-              const Text('Cadastre seu login',
+              const Text('Junte-se a nós!',
                   style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
