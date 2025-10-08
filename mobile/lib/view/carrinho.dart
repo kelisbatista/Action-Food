@@ -13,8 +13,10 @@ class Carrinho extends StatefulWidget {
 class _CarrinhoState extends State<Carrinho> {
   final PedidoService pedidoService = PedidoService();
 
+
   double get total => widget.itensCarrinho
-      .fold(0, (soma, item) => soma + item['price'] * item['qty']);
+      .fold(0, (soma, item) => soma + item['preco'] * item['qty']);
+
 
   void removerItem(int indice) {
     setState(() {
@@ -53,6 +55,7 @@ class _CarrinhoState extends State<Carrinho> {
     return Scaffold(
       backgroundColor: Colors.orange[500],
       appBar: AppBar(
+        backgroundColor: Colors.orange[500],
         title: const Text('Carrinho'),
         automaticallyImplyLeading: false,
         leading:
@@ -61,7 +64,7 @@ class _CarrinhoState extends State<Carrinho> {
               Navigator.pushNamed(context, '/principal');
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
+              backgroundColor: Colors.orange[500],
               foregroundColor: Colors.black,
               elevation: 0,
             ),
@@ -85,22 +88,17 @@ class _CarrinhoState extends State<Carrinho> {
                   padding: const EdgeInsets.all(10),
                   child: Row(
                     children: [
-                      item['imageUrl'] != null
-                          ? Image.network(item['imageUrl'],
-                              width: 60, height: 60)
-                          : Image.asset('assets/logoaction.png',
-                              width: 60, height: 60),
                       const SizedBox(width: 10),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(item['name'],
+                            Text(item['nome'],
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 16)),
                             Text('Qtd: ${item['qty']}'),
                             Text(
-                                'R\$ ${(item['price'] * item['qty']).toStringAsFixed(2)}'),
+                                'R\$ ${(item['preco'] * item['qty'])}'),
                           ],
                         ),
                       ),
@@ -122,10 +120,21 @@ class _CarrinhoState extends State<Carrinho> {
                     style: const TextStyle(
                         fontSize: 18, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 10),
-                ElevatedButton(
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shadowColor: Colors.black,
+                    elevation: 10,
+                    backgroundColor: const Color.fromRGBO(249, 225, 75, 100),
+                    foregroundColor: Colors.black,
+                    fixedSize: const Size(250, 50),
+                    textStyle: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  ),
                   onPressed: finalizarPedido,
                   child: const Text('Finalizar Pedido'),
                 ),
+              ),
               ],
             ),
           ),

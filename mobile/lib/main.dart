@@ -1,12 +1,8 @@
-<<<<<<< HEAD
-import 'package:action_food/view/PagEstabelecimento.dart';
-=======
-import 'package:action_food/view/pagEstabelecimento.dart';
->>>>>>> 357ba3790415000c0dde9c66795e41cda066eb4c
 import 'package:action_food/view/cadastro.dart';
 import 'package:action_food/view/carrinho.dart';
 import 'package:action_food/view/configUsuario.dart';
 import 'package:action_food/view/login.dart';
+import 'package:action_food/view/pagEstabelecimento.dart';
 import 'package:action_food/view/principal.dart';
 import 'package:action_food/view/telaInicial.dart';
 import 'package:flutter/material.dart';
@@ -34,15 +30,9 @@ class MyApp extends StatelessWidget {
         '/cadastrar': (_) => const Cadastro(),
         '/login': (_) => const Login(),
         '/principal': (_) => const Principal(),
-<<<<<<< HEAD
         '/carrinho': (_) => Carrinho(itensCarrinho: []),
         '/configuracoes': (_) => ConfigUsuario(),
-        '/pagEstabelecimento': (_) => Pagestabelecimento(''),
-=======
-        '/carrinho': (_) => const Carrinho(itensCarrinho: []),
         '/configuracao': (_) => ConfigUsuario(),
-        '/pagEstabelecimento': (_) => PagEstabelecimento(''),
->>>>>>> 357ba3790415000c0dde9c66795e41cda066eb4c
       },
     );
   }

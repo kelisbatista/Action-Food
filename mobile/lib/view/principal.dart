@@ -1,5 +1,5 @@
 import 'package:action_food/view/carrinho.dart';
-import 'package:action_food/view/configUsuario.dart';
+import 'package:action_food/view/pagEstabelecimento.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -73,13 +73,6 @@ class _PrincipalState extends State<Principal> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Configurações'),
-              
-                Navigator.pushNamed(context, '/configuracao');
-              },
-            ),
-            ListTile(
               leading: const Icon(Icons.shopping_cart),
               title: const Text('Pedidos'),
               onTap: () {
@@ -99,8 +92,7 @@ class _PrincipalState extends State<Principal> {
           ],
         ),
       ),
-
-      // ======== CORPO DA TELA PRINCIPAL ========
+      
       body: userData == null
           ? const Center(child: CircularProgressIndicator())
           : Builder(
@@ -134,8 +126,6 @@ class _PrincipalState extends State<Principal> {
                     ),
                   ),
                   const SizedBox(height: 20),
-
-                  // ======= STREAMBUILDER DOS ESTABELECIMENTOS =======
                   StreamBuilder<QuerySnapshot>(
                     stream: FirebaseFirestore.instance
                         .collection('estabelecimentos')
@@ -176,6 +166,7 @@ class _PrincipalState extends State<Principal> {
   }
 }
 
+
 class Estabs extends StatelessWidget {
   final String imagemEstab;
   final String nomeEstab;
@@ -194,7 +185,13 @@ class Estabs extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, '/pagEstabelecimento', arguments: idEstab);
+        Navigator.push(
+        context,
+        MaterialPageRoute(
+    builder: (_) => PagEstabelecimento(idEstab),
+  ),
+);
+
       },
       child: Container(
         decoration: BoxDecoration(
@@ -233,6 +230,13 @@ class Estabs extends StatelessWidget {
                     ),
                     overflow: TextOverflow.ellipsis,
                   ),
+                  Text(idEstab,
+                  style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  )
                 ],
               ),
             ),
