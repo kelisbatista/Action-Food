@@ -2,7 +2,6 @@ import 'package:action_food/view/cadastro.dart';
 import 'package:action_food/view/carrinho.dart';
 import 'package:action_food/view/configUsuario.dart';
 import 'package:action_food/view/login.dart';
-import 'package:action_food/view/pagEstabelecimento.dart';
 import 'package:action_food/view/principal.dart';
 import 'package:action_food/view/telaInicial.dart';
 import 'package:flutter/material.dart';
