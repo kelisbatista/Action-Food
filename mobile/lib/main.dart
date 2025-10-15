@@ -2,6 +2,7 @@ import 'package:action_food/view/cadastro.dart';
 import 'package:action_food/view/carrinho.dart';
 import 'package:action_food/view/configUsuario.dart';
 import 'package:action_food/view/login.dart';
+import 'package:action_food/view/pedidos.dart';
 import 'package:action_food/view/principal.dart';
 import 'package:action_food/view/telaInicial.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         '/principal': (_) => const Principal(),
         '/carrinho': (_) => Carrinho(itensCarrinho: []),
         '/configuracoes': (_) => ConfigUsuario(),
-        '/configuracao': (_) => ConfigUsuario(),
+        '/pedidos': (_) => const Pedidos(),
       },
     );
   }

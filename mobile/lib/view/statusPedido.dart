@@ -52,7 +52,6 @@ class StatusPedido extends StatelessWidget {
         FirebaseFirestore.instance.collection('orders').doc(idPedido);
 
     return Scaffold(
-      backgroundColor: Colors.orange[500],
       appBar: AppBar(
         backgroundColor: Colors.orange[500],
         title: const Text(
@@ -96,7 +95,6 @@ class StatusPedido extends StatelessWidget {
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     color: Colors.orange[200],
-                    border: Border.all(color: Colors.black),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Column(
@@ -111,12 +109,26 @@ class StatusPedido extends StatelessWidget {
                           Icon(iconeDoStatus(status),
                               color: corDoStatus(status), size: 28),
                           const SizedBox(width: 10),
-                          Text(
-                            'Status: ${status.toUpperCase()}',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                          Text('Status: ',
+                              style: const TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold)),
+
+                          Container(
+                            height: 20,
+                            width: 100,
+                              decoration: BoxDecoration(
                               color: corDoStatus(status),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Text(
+                              textAlign: TextAlign.center,
+                              '${status.toUpperCase()}',
+                              style: TextStyle(
+                                letterSpacing: 1.2,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
                             ),
                           ),
                         ],
@@ -143,7 +155,6 @@ class StatusPedido extends StatelessWidget {
                       return Container(
                         decoration: BoxDecoration(
                           color: Colors.orange[200],
-                          border: Border.all(color: Colors.black),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         margin: const EdgeInsets.symmetric(
@@ -189,22 +200,25 @@ class StatusPedido extends StatelessWidget {
                 const SizedBox(height: 20),
 
                 // Botão voltar
-                Center(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shadowColor: Colors.black,
-                      elevation: 10,
-                      backgroundColor:
-                          const Color.fromRGBO(249, 225, 75, 100),
-                      foregroundColor: Colors.black,
-                      fixedSize: const Size(250, 50),
-                      textStyle: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Center(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shadowColor: Colors.black,
+                        elevation: 10,
+                        backgroundColor:
+                            const Color.fromRGBO(249, 225, 75, 100),
+                        foregroundColor: Colors.black,
+                        fixedSize: const Size(250, 50),
+                        textStyle: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/principal');
+                      },
+                      child: const Text('Voltar'),
                     ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/principal');
-                    },
-                    child: const Text('Voltar'),
                   ),
                 ),
               ],

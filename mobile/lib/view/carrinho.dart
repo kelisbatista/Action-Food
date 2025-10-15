@@ -53,7 +53,6 @@ class _CarrinhoState extends State<Carrinho> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.orange[500],
       appBar: AppBar(
         backgroundColor: Colors.orange[500],
         title: const Text('Carrinho'),
@@ -61,7 +60,7 @@ class _CarrinhoState extends State<Carrinho> {
         leading:
           ElevatedButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/principal');
+              Navigator.pop(context);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.orange[500],
@@ -72,7 +71,9 @@ class _CarrinhoState extends State<Carrinho> {
           ),
       ),
       body: Column(
-        children: [
+        children: 
+        [
+          SizedBox(height: 10),
           Expanded(
             child: ListView.builder(
               itemCount: widget.itensCarrinho.length,
@@ -81,7 +82,6 @@ class _CarrinhoState extends State<Carrinho> {
                 return Container(
                   decoration: BoxDecoration(
                     color: Colors.orange[200],
-                    border: Border.all(color: Colors.black),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   margin: const EdgeInsets.all(10),

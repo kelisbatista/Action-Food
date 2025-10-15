@@ -59,7 +59,7 @@ class _PagEstabelecimentoState extends State<PagEstabelecimento> {
     return Scaffold(
       appBar: AppBar(
         title: Text(estabData?['nome'] ?? 'Estabelecimento'),
-        backgroundColor: Colors.orange[400],
+        backgroundColor: Colors.orange[500],
       ),
 
       backgroundColor: Colors.orange[50],
@@ -90,7 +90,7 @@ class _PagEstabelecimentoState extends State<PagEstabelecimento> {
                             itemBuilder: (context, index) {
                               final produto = produtos[index];
                               return Card(
-                                color: Colors.orange[100],
+                                color: Colors.orange[200],
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12),
                                 ),
@@ -139,21 +139,7 @@ class _PagEstabelecimentoState extends State<PagEstabelecimento> {
                           ),
         
                   ),
-          
-
                   const SizedBox(height: 10),
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(Icons.arrow_back),
-                    label: const Text('Voltar'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.grey[300],
-                      foregroundColor: Colors.black,
-                      minimumSize: const Size(double.infinity, 50),
-                    ),
-                  ),
                 ],
               ),
             ),

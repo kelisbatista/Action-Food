@@ -19,6 +19,7 @@ class PedidoService {
       'total': total,
       'status_pedido': 'criando', // status inicial
       'createdAt': FieldValue.serverTimestamp(),
+      'estabId' : itens.isNotEmpty ? itens[0]['estabId'] : null,
     });
 
     return orderId;

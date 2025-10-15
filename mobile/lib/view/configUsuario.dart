@@ -115,13 +115,25 @@ class _ConfigUsuarioState extends State<ConfigUsuario> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.orange[300],
+      backgroundColor: Colors.orange[500],
       appBar: AppBar(
-        backgroundColor: Colors.orange[300],
+        backgroundColor: Colors.orange[500],
         title: const Text(
           'Configurações do Usuário',
           style: TextStyle(color: Color.fromARGB(255, 9, 9, 9)),
         ),
+        automaticallyImplyLeading: false,
+        leading: ElevatedButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/principal');
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.orange[500],
+              foregroundColor: Colors.black,
+              elevation: 0,
+            ),
+            child: Icon(Icons.arrow_back, color: Colors.black, size: 25),
+          ),
         iconTheme: const IconThemeData(color: Color.fromARGB(255, 14, 14, 14)),
       ),
       body: _loading

@@ -1,4 +1,3 @@
-import 'package:action_food/view/carrinho.dart';
 import 'package:action_food/view/pagEstabelecimento.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -76,12 +75,8 @@ class _PrincipalState extends State<Principal> {
               leading: const Icon(Icons.shopping_cart),
               title: const Text('Pedidos'),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => Carrinho(itensCarrinho: itensCarrinho),
-                  ),
-                );
+                Navigator.pushNamed(
+                  context, '/pedidos');
               },
             ),
             ListTile(
@@ -230,13 +225,6 @@ class Estabs extends StatelessWidget {
                     ),
                     overflow: TextOverflow.ellipsis,
                   ),
-                  Text(idEstab,
-                  style: const TextStyle(
-                      fontSize: 14,
-                      color: Colors.black,
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                  )
                 ],
               ),
             ),
