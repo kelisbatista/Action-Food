@@ -7,10 +7,11 @@ class PedidoService {
   /// Cria um novo pedido no Firestore
   /// [itens] → lista de itens do carrinho
   /// [total] → valor total do pedido
-  Future<String> criarPedido(
-      List<Map<String, dynamic>> itens, double total) async {
+  Future<String> criarPedido( String idEstab
+      ,List<Map<String, dynamic>> itens, double total) async {
     final uid = FirebaseAuth.instance.currentUser!.uid;
     final docPedido = _db.collection('orders').doc();
+    
     final orderId = docPedido.id;
 
     await docPedido.set({
@@ -19,7 +20,7 @@ class PedidoService {
       'total': total,
       'status_pedido': 'criando', // status inicial
       'createdAt': FieldValue.serverTimestamp(),
-      'estabId' : itens.isNotEmpty ? itens[0]['estabId'] : null,
+      'estabId': idEstab, // assuming first item has the establishment ID
     });
 
     return orderId;

@@ -1,4 +1,5 @@
 import 'package:action_food/view/pagEstabelecimento.dart';
+import 'package:action_food/view/pedidos.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,7 +14,6 @@ class Principal extends StatefulWidget {
 class _PrincipalState extends State<Principal> {
   User? user;
   Map<String, dynamic>? userData;
-  List<Map<String, dynamic>> itensCarrinho = [];
 
   @override
   void initState() {
@@ -75,8 +75,11 @@ class _PrincipalState extends State<Principal> {
               leading: const Icon(Icons.shopping_cart),
               title: const Text('Pedidos'),
               onTap: () {
-                Navigator.pushNamed(
-                  context, '/pedidos');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => Pedidos(user!.uid),),
+                );
               },
             ),
             ListTile(
