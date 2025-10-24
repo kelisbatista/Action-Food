@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PagEstabelecimento extends StatefulWidget {
-  final String idEstab; 
+  final String idEstab;
   const PagEstabelecimento(this.idEstab, {super.key});
 
   @override
@@ -11,7 +11,6 @@ class PagEstabelecimento extends StatefulWidget {
 }
 
 class _PagEstabelecimentoState extends State<PagEstabelecimento> {
-
   Map<String, dynamic>? estabData;
   List<Map<String, dynamic>> produtos = [];
   List<Map<String, dynamic>> itensCarrinho = [];
@@ -43,9 +42,7 @@ class _PagEstabelecimentoState extends State<PagEstabelecimento> {
 
         if (mounted) {
           setState(() {
-            produtos = produtosSnapshot.docs
-                .map((doc) => doc.data())
-                .toList();
+            produtos = produtosSnapshot.docs.map((doc) => doc.data()).toList();
           });
         }
       }
@@ -58,26 +55,29 @@ class _PagEstabelecimentoState extends State<PagEstabelecimento> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(estabData?['nome'] ?? 'Estabelecimento'),
+        title: Text((estabData?['nome'] ?? 'Estabelecimento'),
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: Colors.black)),
         backgroundColor: Colors.orange[500],
       ),
-
       backgroundColor: Colors.orange[50],
       body: estabData == null
           ? const Center(child: CircularProgressIndicator())
           : Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Center(
                     child: Text(
-                    "Produtos disponíveis:",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                      "Produtos disponíveis:",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
                   ),
                   // Lista de produtos
                   Expanded(
@@ -92,7 +92,7 @@ class _PagEstabelecimentoState extends State<PagEstabelecimento> {
                               return Card(
                                 color: Colors.orange[200],
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
+                                  borderRadius: BorderRadius.circular(16),
                                 ),
                                 margin: const EdgeInsets.symmetric(
                                     vertical: 6, horizontal: 4),
@@ -104,8 +104,7 @@ class _PagEstabelecimentoState extends State<PagEstabelecimento> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                   subtitle: Text(
-                                    produto['descricao'] ??
-                                        'Sem descrição',
+                                    produto['descricao'] ?? 'Sem descrição',
                                   ),
                                   trailing: Text(
                                     produto['preco'] != null
@@ -116,7 +115,8 @@ class _PagEstabelecimentoState extends State<PagEstabelecimento> {
                                   ),
                                   onTap: () {
                                     var preco = produto['preco'] ?? 0.0;
-                                    preco = double.tryParse(preco.toString()) ?? 0.0;
+                                    preco = double.tryParse(preco.toString()) ??
+                                        0.0;
                                     // Adiciona o produto ao carrinho
                                     final itemPedido = {
                                       'nome': produto['nome'],
@@ -124,12 +124,14 @@ class _PagEstabelecimentoState extends State<PagEstabelecimento> {
                                       'qty': 1,
                                       'imageUrl': produto['imagemUrl'] ?? '',
                                     };
-                                    setState((){
+                                    setState(() {
                                       itensCarrinho.add(itemPedido);
                                     });
-                                     Navigator.push(context,
+                                    Navigator.push(
+                                      context,
                                       MaterialPageRoute(
-                                        builder: (_) => Carrinho(widget.idEstab,itensCarrinho: itensCarrinho),
+                                        builder: (_) => Carrinho(widget.idEstab,
+                                            itensCarrinho: itensCarrinho),
                                       ),
                                     );
                                   },
@@ -137,7 +139,6 @@ class _PagEstabelecimentoState extends State<PagEstabelecimento> {
                               );
                             },
                           ),
-        
                   ),
                   const SizedBox(height: 10),
                 ],

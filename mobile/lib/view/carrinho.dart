@@ -6,11 +6,7 @@ class Carrinho extends StatefulWidget {
   final List<Map<String, dynamic>> itensCarrinho;
   final String idEstab;
 
-  Carrinho(this.idEstab,{required this.itensCarrinho, super.key}) {
-    for (var item in itensCarrinho) {
-      item['estabId'] = idEstab;
-    }
-  }
+  const Carrinho(this.idEstab, {required this.itensCarrinho, super.key});
 
   @override
   State<Carrinho> createState() => _CarrinhoState();
@@ -19,10 +15,8 @@ class Carrinho extends StatefulWidget {
 class _CarrinhoState extends State<Carrinho> {
   final PedidoService pedidoService = PedidoService();
 
-
   double get total => widget.itensCarrinho
       .fold(0, (soma, item) => soma + item['preco'] * item['qty']);
-
 
   void removerItem(int indice) {
     setState(() {
@@ -32,21 +26,17 @@ class _CarrinhoState extends State<Carrinho> {
 
   Future<void> finalizarPedido() async {
     try {
-      // Cria pedido no Firestore
-      final orderId =
-          await pedidoService.criarPedido(widget.idEstab,widget.itensCarrinho, total);
-
-      // Atualiza status do pedido para "pendente"
+      final orderId = await pedidoService.criarPedido(
+        widget.idEstab,
+        widget.itensCarrinho,
+        total,
+      );
       await pedidoService.atualizarStatus(orderId, 'pendente');
 
       if (!mounted) return;
-
-      // Navega direto para a tela de status do pedido
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-          builder: (_) => StatusPedido(idPedido: orderId),
-        ),
+        MaterialPageRoute(builder: (_) => StatusPedido(idPedido: orderId)),
       );
     } catch (e) {
       if (!mounted) return;
@@ -59,93 +49,127 @@ class _CarrinhoState extends State<Carrinho> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.orange[50],
       appBar: AppBar(
-        backgroundColor: Colors.orange[500],
-        title: const Text('Carrinho'),
-        automaticallyImplyLeading: false,
-        leading:
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.orange[500],
-              foregroundColor: Colors.black,
-              elevation: 0,
-            ),
-            child: Icon(Icons.arrow_back, color: Colors.black, size: 25),
-          ),
+        backgroundColor: Colors.orange[400],
+        elevation: 2,
+        title: const Text(
+          'Carrinho',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
-      body: Column(
-        children: 
-        [
-          SizedBox(height: 10),
-          Expanded(
-            child: ListView.builder(
-              itemCount: widget.itensCarrinho.length,
-              itemBuilder: (context, i) {
-                final item = widget.itensCarrinho[i];
-                return Container(
-                  decoration: BoxDecoration(
-                    color: Colors.orange[200],
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  margin: const EdgeInsets.all(10),
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
-                    children: [
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(item['nome'],
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 16)),
-                            Text('Qtd: ${item['qty']}'),
-                            Text(
-                                'R\$ ${(item['preco'] * item['qty'])}'),
-                          ],
+      body: widget.itensCarrinho.isEmpty
+          ? const Center(
+              child: Text(
+                'Seu carrinho está vazio 🛒',
+                style: TextStyle(fontSize: 18, color: Colors.grey),
+              ),
+            )
+          : Column(
+              children: [
+                const SizedBox(height: 10),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: widget.itensCarrinho.length,
+                    itemBuilder: (context, i) {
+                      final item = widget.itensCarrinho[i];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 6),
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          elevation: 4,
+                          color: Colors.orange[200],
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: Colors.orange[200],
+                              child: const Icon(Icons.fastfood,
+                                  color: Color.fromARGB(255, 73, 73, 73)),
+                            ),
+                            title: Text(
+                              item['nome'],
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16),
+                            ),
+                            subtitle: Text(
+                              'Qtd: ${item['qty']}   |   R\$ ${(item['preco'] * item['qty']).toStringAsFixed(2)}',
+                              style: const TextStyle(color: Colors.black54),
+                            ),
+                            trailing: IconButton(
+                              icon: const Icon(Icons.delete, color: Colors.red),
+                              onPressed: () => removerItem(i),
+                            ),
+                          ),
                         ),
+                      );
+                    },
+                  ),
+                ),
+
+                // Rodapé com total e botão
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 10,
+                        offset: const Offset(0, -3),
+                      )
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        'Total: R\$ ${total.toStringAsFixed(2)}',
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       ),
-                      IconButton(
-                        icon: const Icon(Icons.delete, color: Colors.red),
-                        onPressed: () => removerItem(i),
+                      const SizedBox(height: 12),
+                      GestureDetector(
+                        onTap: finalizarPedido,
+                        child: Container(
+                          width: double.infinity,
+                          height: 55,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(14),
+                            gradient: const LinearGradient(
+                              colors: [Color(0xFFF9E14B), Color(0xFFFFA500)],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.orangeAccent.withOpacity(0.4),
+                                blurRadius: 6,
+                                offset: const Offset(0, 4),
+                              )
+                            ],
+                          ),
+                          alignment: Alignment.center,
+                          child: const Text(
+                            'Finalizar Pedido',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),
-                );
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              children: [
-                Text('Total: R\$ ${total.toStringAsFixed(2)}',
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shadowColor: Colors.black,
-                    elevation: 10,
-                    backgroundColor: const Color.fromRGBO(249, 225, 75, 100),
-                    foregroundColor: Colors.black,
-                    fixedSize: const Size(250, 50),
-                    textStyle: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                  ),
-                  onPressed: finalizarPedido,
-                  child: const Text('Finalizar Pedido'),
                 ),
-              ),
               ],
             ),
-          ),
-        ],
-      ),
     );
   }
 }
