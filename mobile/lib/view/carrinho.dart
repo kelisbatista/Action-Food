@@ -7,15 +7,12 @@ class Carrinho extends StatefulWidget {
   final String idEstab;
   final String nomeEstab;
 
-<<<<<<< HEAD
-  Carrinho(this.nomeEstab,this.idEstab,{required this.itensCarrinho, super.key}) {
+  Carrinho(this.nomeEstab, this.idEstab,
+      {required this.itensCarrinho, super.key}) {
     for (var item in itensCarrinho) {
       item['estabId'] = idEstab;
     }
   }
-=======
-  const Carrinho(this.idEstab, {required this.itensCarrinho, super.key});
->>>>>>> dc04efcea4d70608698f37ae6fe683755f940a32
 
   @override
   State<Carrinho> createState() => _CarrinhoState();
@@ -35,19 +32,9 @@ class _CarrinhoState extends State<Carrinho> {
 
   Future<void> finalizarPedido() async {
     try {
-<<<<<<< HEAD
-      // Cria pedido no Firestore
-      final orderId =
-          await pedidoService.criarPedido(widget.nomeEstab,widget.idEstab,widget.itensCarrinho, total);
-
-      // Atualiza status do pedido para "pendente"
-=======
       final orderId = await pedidoService.criarPedido(
-        widget.idEstab,
-        widget.itensCarrinho,
-        total,
-      );
->>>>>>> dc04efcea4d70608698f37ae6fe683755f940a32
+          widget.nomeEstab, widget.idEstab, widget.itensCarrinho, total);
+
       await pedidoService.atualizarStatus(orderId, 'pendente');
 
       if (!mounted) return;
@@ -109,19 +96,79 @@ class _CarrinhoState extends State<Carrinho> {
                               child: const Icon(Icons.fastfood,
                                   color: Color.fromARGB(255, 73, 73, 73)),
                             ),
+
                             title: Text(
                               item['nome'],
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 16),
                             ),
-                            subtitle: Text(
-                              'Qtd: ${item['qty']}   |   R\$ ${(item['preco'] * item['qty']).toStringAsFixed(2)}',
-                              style: const TextStyle(color: Colors.black54),
+
+                            subtitle: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          if (item['qty'] == 1){
+                                            removerItem(i);
+                                            }
+                                          else if (item['qty'] > 1) {
+                                            item['qty']--;
+                                          }
+                                        });
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.all(3),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(6),
+                                        ),
+                                        child: Icon( item['qty'] == 1 ? Icons.delete : Icons.remove, size: 15),
+                                      ),
+                                    ),
+
+                                    const SizedBox(width: 10),
+
+                                    Text(
+                                      '${item['qty']}',
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+
+                                    const SizedBox(width: 10),
+
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          item['qty']++;
+                                        });
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.all(3),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(6),
+                                        ),
+                                        child: const Icon(Icons.add, size: 15),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                            trailing: IconButton(
-                              icon: const Icon(Icons.delete, color: Colors.red),
-                              onPressed: () => removerItem(i),
-                            ),
+
+                            trailing: 
+                            Text(
+                                  'R\$ ${(item["preco"] * item["qty"]).toStringAsFixed(2)}',
+                                  style: const TextStyle(
+                                    color: Colors.black87, fontSize: 16,
+                                  ),
+                                ),
                           ),
                         ),
                       );
@@ -129,7 +176,6 @@ class _CarrinhoState extends State<Carrinho> {
                   ),
                 ),
 
-                // Rodapé com total e botão
                 Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
@@ -137,10 +183,10 @@ class _CarrinhoState extends State<Carrinho> {
                     color: Colors.white,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
+                        color: Colors.black12,
                         blurRadius: 10,
                         offset: const Offset(0, -3),
-                      )
+                      ),
                     ],
                   ),
                   child: Column(
@@ -165,10 +211,11 @@ class _CarrinhoState extends State<Carrinho> {
                             ),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.orangeAccent.withOpacity(0.4),
+                                color:
+                                    Colors.orangeAccent,
                                 blurRadius: 6,
                                 offset: const Offset(0, 4),
-                              )
+                              ),
                             ],
                           ),
                           alignment: Alignment.center,

@@ -103,6 +103,13 @@ class _PrincipalState extends State<Principal> {
                 fontSize: 14,
               ),
             ),
+            Text(
+              userData?['telefone'] ?? '',
+                style: const TextStyle(
+                color: Colors.white70,
+                fontSize: 14,
+              ),
+            ),
           ],
         ),
       ),

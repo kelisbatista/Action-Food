@@ -130,12 +130,7 @@ class _PagEstabelecimentoState extends State<PagEstabelecimento> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-<<<<<<< HEAD
                                         builder: (_) => Carrinho(estabData?['nome'],widget.idEstab,itensCarrinho: itensCarrinho),
-=======
-                                        builder: (_) => Carrinho(widget.idEstab,
-                                            itensCarrinho: itensCarrinho),
->>>>>>> dc04efcea4d70608698f37ae6fe683755f940a32
                                       ),
                                     );
                                   },
