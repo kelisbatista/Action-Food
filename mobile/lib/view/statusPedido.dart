@@ -18,7 +18,7 @@ class StatusPedido extends StatelessWidget {
       case 'preparando':
         return Colors.blue;
       case 'pronto para retirar':
-        return Colors.purple;
+        return Colors.green;
       case 'cancelado':
         return Colors.red;
       default:
@@ -83,6 +83,7 @@ class StatusPedido extends StatelessWidget {
           final status = dados['status_pedido'] ?? 'desconhecido';
           final total = (dados['total'] ?? 0).toDouble();
           final items = List<Map<String, dynamic>>.from(dados['items'] ?? []);
+          final nomeEstab = dados['nomeEstab'] ?? 'Estabelecimento desconhecido';
 
           return Padding(
             padding: const EdgeInsets.all(12.0),
@@ -100,14 +101,18 @@ class StatusPedido extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Text('Estabelecimento: $nomeEstab',
+                          style: const TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold)),
+
                       Text('Pedido ID: $idPedido',
                           style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold)),
-                      const SizedBox(height: 8),
+                              fontSize: 12)),
+                      const SizedBox(height: 15),
                       Row(
                         children: [
                           Icon(iconeDoStatus(status),
-                              color: corDoStatus(status), size: 28),
+                              color: Colors.black87, size: 28),
                           const SizedBox(width: 10),
                           Text('Status: ',
                               style: const TextStyle(

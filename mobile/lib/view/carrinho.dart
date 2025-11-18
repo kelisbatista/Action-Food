@@ -5,8 +5,9 @@ import 'package:action_food/view/statusPedido.dart';
 class Carrinho extends StatefulWidget {
   final List<Map<String, dynamic>> itensCarrinho;
   final String idEstab;
+  final String nomeEstab;
 
-  Carrinho(this.idEstab,{required this.itensCarrinho, super.key}) {
+  Carrinho(this.nomeEstab,this.idEstab,{required this.itensCarrinho, super.key}) {
     for (var item in itensCarrinho) {
       item['estabId'] = idEstab;
     }
@@ -34,7 +35,7 @@ class _CarrinhoState extends State<Carrinho> {
     try {
       // Cria pedido no Firestore
       final orderId =
-          await pedidoService.criarPedido(widget.idEstab,widget.itensCarrinho, total);
+          await pedidoService.criarPedido(widget.nomeEstab,widget.idEstab,widget.itensCarrinho, total);
 
       // Atualiza status do pedido para "pendente"
       await pedidoService.atualizarStatus(orderId, 'pendente');

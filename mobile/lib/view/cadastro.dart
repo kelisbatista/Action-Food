@@ -47,7 +47,6 @@ class _CadastroState extends State<Cadastro> {
       backgroundColor: Colors.orange[500],
       appBar: AppBar(
         backgroundColor: Colors.orange[500],
-        title: const Text('Área de Cadastro'),
         centerTitle: true,
       ),
       body: ListView(
@@ -65,7 +64,10 @@ class _CadastroState extends State<Cadastro> {
                 child: TextField(
                     controller: emailCtrl,
                     decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.email), labelText: 'Email')),
+                      fillColor: Colors.orangeAccent,
+                      prefixIcon: Icon(Icons.email), 
+                      filled: true,
+                      labelText: 'Email')),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -73,13 +75,18 @@ class _CadastroState extends State<Cadastro> {
                     controller: senhaCtrl,
                     obscureText: true,
                     decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.lock), labelText: 'Senha')),
+                        fillColor: Colors.orangeAccent,
+                        filled: true,
+                        prefixIcon: Icon(Icons.lock),
+                        labelText: 'Senha')),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
                     controller: nomeCtrl,
                     decoration: const InputDecoration(
+                        fillColor: Colors.orangeAccent,
+                        filled: true,
                         prefixIcon: Icon(Icons.person),
                         labelText: 'Nome Completo')),
               ),
@@ -88,18 +95,35 @@ class _CadastroState extends State<Cadastro> {
                 child: TextField(
                     controller: telefoneCtrl,
                     decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.phone), labelText: 'Telefone')),
+                        fillColor: Colors.orangeAccent,
+                        filled: true,
+                        prefixIcon: Icon(Icons.phone), 
+                        labelText: 'Telefone')),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
                     controller: cpfCtrl,
                     decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.badge), labelText: 'CPF')),
+                        fillColor: Colors.orangeAccent,
+                        filled: true,
+                        prefixIcon: Icon(Icons.badge), 
+                        labelText: 'CPF')),
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                  onPressed: cadastrar, child: const Text('Cadastrar'))
+                  onPressed: cadastrar, 
+                  style: ElevatedButton.styleFrom(
+                shadowColor: Colors.black,
+                elevation: 10,
+                backgroundColor: const Color.fromRGBO(249, 225, 75, 100),
+                foregroundColor: Colors.black,
+                fixedSize: const Size(250, 50),
+                textStyle:
+                    const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
+                  
+                  child: const Text('Cadastrar'))
             ],
           ),
         ],

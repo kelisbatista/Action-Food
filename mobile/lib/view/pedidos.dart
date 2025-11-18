@@ -1,9 +1,9 @@
+import 'package:action_food/view/statusPedido.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Pedidos extends StatefulWidget {
   final String idUser;
-  final String idEstab = '';
 
   const Pedidos(this.idUser, {super.key});
 
@@ -13,34 +13,13 @@ class Pedidos extends StatefulWidget {
 
 class _PedidosState extends State<Pedidos> {
 
-  Map<String, dynamic>? estabData;
+
   List<Map<String, dynamic>> produtos = [];
 
-  void initState() {
-    super.initState();
-    _loadEstabelecimento();
-  }
-
-  Future<void> _loadEstabelecimento() async {
-    try {
-      // Busca o documento do estabelecimento
-      final estabDoc = await FirebaseFirestore.instance
-          .collection('estabelecimentos')
-          .doc(widget.idEstab)
-          .get();
-
-      if (estabDoc.exists && mounted) {
-        setState(() {
-          estabData = estabDoc.data();
-        });
-      }
-    } catch (e) {
-      print("Erro ao carregar estabelecimento: $e");
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Meus Pedidos'),
@@ -98,10 +77,11 @@ class _PedidosState extends State<Pedidos> {
                     itemCount: pedidos.length,
                     itemBuilder: (context, index) {
                       final pedido = pedidos[index].data() as Map<String, dynamic>;
-                      final nomeEstab =
-                          estabData?['nomeEstabelecimento'] ?? 'Estabelecimento não encontrado';
                       final status =
                           pedido['status_pedido'] ?? 'Status não informado';
+                      final nomeEstab = pedido['nomeEstab'] ?? 'Estabelecimento desconhecido';
+                    
+                  
 
                       return Card(
                         color: Colors.orange[200],
@@ -126,7 +106,14 @@ class _PedidosState extends State<Pedidos> {
                           trailing:
                               const Icon(Icons.arrow_forward_ios, size: 16),
                           onTap: () {
-                            // Aqui você pode abrir uma tela de detalhes do pedido
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => StatusPedido(
+                                  idPedido: pedidos[index].id,
+                                ),
+                              ),
+                            );
                           },
                         ),
                       );
@@ -143,12 +130,14 @@ class _PedidosState extends State<Pedidos> {
 
   Color _corStatus(String status) {
     switch (status.toLowerCase()) {
-      case 'pago':
+      case 'pronto para retirar':
         return Colors.green[800]!;
       case 'pendente':
         return Colors.orange[800]!;
+      case 'preparando':
+        return Colors.blue[800]!;
       case 'cancelado':
-        return Colors.red[800]!;
+        return Colors.red;
       default:
         return Colors.grey[700]!;
     }

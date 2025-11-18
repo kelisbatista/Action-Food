@@ -13,13 +13,29 @@ class Principal extends StatefulWidget {
 
 class _PrincipalState extends State<Principal> {
   User? user;
+  Map<String, dynamic>? estabData;
   Map<String, dynamic>? userData;
+  
 
   @override
   void initState() {
     super.initState();
     user = FirebaseAuth.instance.currentUser;
     _loadUserData();
+    _loadEstab();
+  }
+
+  Future<void> _loadEstab() async {
+    final estabDoc = await FirebaseFirestore.instance
+        .collection('estabelecimentos')
+        .doc()
+        .get();
+
+    if (estabDoc.exists && mounted) {
+      setState(() {
+        estabData = estabDoc.data as Map<String, dynamic>;
+      });
+    }
   }
 
   Future<void> _loadUserData() async {
@@ -38,6 +54,8 @@ class _PrincipalState extends State<Principal> {
   }
 
   void _logout() async {
+
+
     await FirebaseAuth.instance.signOut();
     if (mounted) {
       Navigator.pushReplacementNamed(context, '/login');
@@ -48,49 +66,86 @@ class _PrincipalState extends State<Principal> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.orange[500],
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
+    drawer: Drawer(
+  child: Column(
+    children: [
+      Container(
+        padding: const EdgeInsets.only(top: 40, bottom: 25),
+        width: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.orange.shade400, Colors.orange.shade700],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Column(
           children: [
-            DrawerHeader(
-              decoration: BoxDecoration(color: Colors.orange[300]),
-              child: Text(
-                userData == null ? 'Olá! Usuário' : 'Olá, ${userData!['nome']}',
-                style: const TextStyle(color: Colors.black, fontSize: 24),
+            CircleAvatar(
+              radius: 45,
+              backgroundColor: Colors.white,
+              child: Icon(Icons.person,
+                  size: 55, color: Colors.orange.shade700),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              userData?['nome'] ?? 'Carregando...',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
               ),
             ),
-            ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text('Página Inicial'),
-              onTap: () => Navigator.pop(context),
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Configurações'),
-              onTap: () {
-                Navigator.pushReplacementNamed(context, '/configuracoes');
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.shopping_cart),
-              title: const Text('Pedidos'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => Pedidos(user!.uid),),
-                );
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.logout),
-              title: const Text('Sair'),
-              onTap: _logout,
+            Text(
+              user?.email ?? '',
+              style: const TextStyle(
+                color: Colors.white70,
+                fontSize: 14,
+              ),
             ),
           ],
         ),
       ),
-      
+
+      const SizedBox(height: 10),
+
+      _drawerItem(
+        icon: Icons.home,
+        text: "Página Inicial",
+        onTap: () => Navigator.pop(context),
+      ),
+
+      _drawerItem(
+        icon: Icons.shopping_cart,
+        text: "Pedidos",
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => Pedidos(user!.uid)),
+          );
+        },
+      ),
+
+      _drawerItem(
+        icon: Icons.settings,
+        text: "Configurações",
+        onTap: () {
+          Navigator.pushReplacementNamed(context, '/configuracoes');
+        },
+      ),
+
+      const Spacer(),
+
+      _drawerItem(
+        icon: Icons.logout,
+        text: "Sair",
+        isDestructive: true,
+        onTap: _logout,
+      ),
+      const SizedBox(height: 20),
+    ],
+  ),
+),    
       body: userData == null
           ? const Center(child: CircularProgressIndicator())
           : Builder(
@@ -162,6 +217,30 @@ class _PrincipalState extends State<Principal> {
             ),
     );
   }
+}
+
+Widget _drawerItem({
+  required IconData icon,
+  required String text,
+  required VoidCallback onTap,
+  bool isDestructive = false,
+}) {
+  return ListTile(
+    leading: Icon(
+      icon,
+      color: isDestructive ? Colors.red : Colors.orange[700],
+      size: 28,
+    ),
+    title: Text(
+      text,
+      style: TextStyle(
+        fontSize: 17,
+        fontWeight: FontWeight.w500,
+        color: isDestructive ? Colors.red : Colors.black87,
+      ),
+    ),
+    onTap: onTap,
+  );
 }
 
 

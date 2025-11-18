@@ -31,7 +31,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.orange[500],
-      appBar: AppBar(backgroundColor: Colors.orange[500], automaticallyImplyLeading: false,),
+      appBar: AppBar(backgroundColor: Colors.orange[500]),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
