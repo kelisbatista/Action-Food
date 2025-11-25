@@ -2,6 +2,7 @@ import 'package:action_food/mostraErroAuth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:action_food/PipeTelefone.dart';
 
 class Cadastro extends StatefulWidget {
   const Cadastro({super.key});
@@ -29,7 +30,7 @@ class _CadastroState extends State<Cadastro> {
       await FirebaseFirestore.instance.collection('usuarios').doc(uid).set({
         'email': emailCtrl.text.trim(),
         'nome': nomeCtrl.text.trim(),
-        'telefone': telefoneCtrl.text.trim(),
+        'telefone': PipeTelefone.pipeTelefone(telefoneCtrl.text.trim()),
         'cpf': cpfCtrl.text.trim(),
         'createdAt': FieldValue.serverTimestamp(),
       });
@@ -130,4 +131,5 @@ class _CadastroState extends State<Cadastro> {
       ),
     );
   }
+
 }

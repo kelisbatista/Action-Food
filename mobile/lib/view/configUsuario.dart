@@ -1,3 +1,4 @@
+import 'package:action_food/PipeTelefone.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -27,7 +28,7 @@ class _ConfigUsuarioState extends State<ConfigUsuario> {
     setState(() => _loading = true);
     try {
       await _firestore.collection('usuarios').doc(user.uid).update({
-        'telefone': telefone,
+        'telefone': PipeTelefone.pipeTelefone(telefone),
       });
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Telefone atualizado com sucesso!')),
