@@ -1,3 +1,4 @@
+import 'package:action_food/pagamento.dart';
 import 'package:flutter/material.dart';
 import 'package:action_food/pedidoService.dart';
 import 'package:action_food/view/statusPedido.dart';
@@ -20,6 +21,8 @@ class Carrinho extends StatefulWidget {
 
 class _CarrinhoState extends State<Carrinho> {
   final PedidoService pedidoService = PedidoService();
+
+  String get idEstab => widget.idEstab;
 
   double get total => widget.itensCarrinho
       .fold(0, (soma, item) => soma + item['preco'] * item['qty']);
@@ -52,6 +55,7 @@ class _CarrinhoState extends State<Carrinho> {
 
   @override
   Widget build(BuildContext context) {
+    TipoPagamento? tipoEscolhido;
     return Scaffold(
       backgroundColor: Colors.orange[50],
       appBar: AppBar(
@@ -174,6 +178,46 @@ class _CarrinhoState extends State<Carrinho> {
                       );
                     },
                   ),
+                ),
+
+                Column(
+                  children: [
+                    const Divider(
+                      thickness: 6,
+                      color: Colors.black26,
+                    ),
+                    Row(
+                      children: [
+                        Icon(Icons.payment, color: Colors.grey[700],),
+                        Text('Forma de pagamento', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey[800]),),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Column(
+                        children: [
+                            RadioGroup<TipoPagamento>(
+                           groupValue: tipoEscolhido,
+                            onChanged: (TipoPagamento? value) {
+                            setState(() {
+                            tipoEscolhido = value;
+                                                  });
+                                              },
+          child: const Column(
+            children: <Widget>[
+              ListTile(
+                title: Text('Pagamento no estabelecimento'),
+                leading: Radio<TipoPagamento>(value: TipoPagamento.estab),
+              ),
+              ListTile(
+                title: Text('Pix'),
+                leading: Radio<TipoPagamento>(value: TipoPagamento.pix),
+              ),
+            ],
+          ),
+        ),
+      ], 
+    )
+                  ],
                 ),
 
                 Container(

@@ -2,7 +2,7 @@ import 'package:action_food/mostraErroAuth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:action_food/PipeTelefone.dart';
+import 'package:action_food/pipeTelefone.dart';
 
 class Cadastro extends StatefulWidget {
   const Cadastro({super.key});

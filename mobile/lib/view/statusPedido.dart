@@ -4,8 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class StatusPedido extends StatelessWidget {
   final String idPedido;
 
-  const StatusPedido({required this.idPedido, super.key});
-
+  const StatusPedido({required this.idPedido,super.key});
+  
   // Cor do status
   Color corDoStatus(String status) {
     switch (status) {
@@ -84,6 +84,7 @@ class StatusPedido extends StatelessWidget {
           final total = (dados['total'] ?? 0).toDouble();
           final items = List<Map<String, dynamic>>.from(dados['items'] ?? []);
           final nomeEstab = dados['nomeEstab'] ?? 'Estabelecimento desconhecido';
+          
 
           return Padding(
             padding: const EdgeInsets.all(12.0),
@@ -194,6 +195,7 @@ class StatusPedido extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 10),
+
 
                 // Total
                 Text(
