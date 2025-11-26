@@ -8,8 +8,12 @@ class Carrinho extends StatefulWidget {
   final String idEstab;
   final String nomeEstab;
 
-  Carrinho(this.nomeEstab, this.idEstab,
-      {required this.itensCarrinho, super.key}) {
+  Carrinho(
+    this.nomeEstab,
+    this.idEstab, {
+    required this.itensCarrinho,
+    super.key,
+  }) {
     for (var item in itensCarrinho) {
       item['estabId'] = idEstab;
     }
@@ -21,11 +25,12 @@ class Carrinho extends StatefulWidget {
 
 class _CarrinhoState extends State<Carrinho> {
   final PedidoService pedidoService = PedidoService();
+  TipoPagamento? tipoEscolhido;
 
-  String get idEstab => widget.idEstab;
-
-  double get total => widget.itensCarrinho
-      .fold(0, (soma, item) => soma + item['preco'] * item['qty']);
+  double get total => widget.itensCarrinho.fold(
+        0,
+        (soma, item) => soma + (item['preco'] * item['qty']),
+      );
 
   void removerItem(int indice) {
     setState(() {
@@ -33,20 +38,29 @@ class _CarrinhoState extends State<Carrinho> {
     });
   }
 
-  Future<void> finalizarPedido() async {
+  Future<void> finalizarPedido(TipoPagamento tipopgto) async {
     try {
       final orderId = await pedidoService.criarPedido(
-          widget.nomeEstab, widget.idEstab, widget.itensCarrinho, total);
+        widget.nomeEstab,
+        widget.idEstab,
+        widget.itensCarrinho,
+        total,
+        tipopgto,
+      );
 
       await pedidoService.atualizarStatus(orderId, 'pendente');
 
       if (!mounted) return;
+
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => StatusPedido(idPedido: orderId)),
+        MaterialPageRoute(
+          builder: (_) => StatusPedido(idPedido: orderId),
+        ),
       );
     } catch (e) {
       if (!mounted) return;
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Erro ao finalizar pedido: $e')),
       );
@@ -55,7 +69,6 @@ class _CarrinhoState extends State<Carrinho> {
 
   @override
   Widget build(BuildContext context) {
-    TipoPagamento? tipoEscolhido;
     return Scaffold(
       backgroundColor: Colors.orange[50],
       appBar: AppBar(
@@ -70,6 +83,7 @@ class _CarrinhoState extends State<Carrinho> {
           onPressed: () => Navigator.pop(context),
         ),
       ),
+
       body: widget.itensCarrinho.isEmpty
           ? const Center(
               child: Text(
@@ -80,14 +94,19 @@ class _CarrinhoState extends State<Carrinho> {
           : Column(
               children: [
                 const SizedBox(height: 10),
+
+                // LISTA DE PRODUTOS
                 Expanded(
                   child: ListView.builder(
                     itemCount: widget.itensCarrinho.length,
                     itemBuilder: (context, i) {
                       final item = widget.itensCarrinho[i];
+
                       return Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 6),
+                          horizontal: 12,
+                          vertical: 6,
+                        ),
                         child: Card(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16),
@@ -108,71 +127,73 @@ class _CarrinhoState extends State<Carrinho> {
                             ),
 
                             subtitle: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Row(
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          if (item['qty'] == 1){
-                                            removerItem(i);
-                                            }
-                                          else if (item['qty'] > 1) {
-                                            item['qty']--;
-                                          }
-                                        });
-                                      },
-                                      child: Container(
-                                        padding: const EdgeInsets.all(3),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(6),
-                                        ),
-                                        child: Icon( item['qty'] == 1 ? Icons.delete : Icons.remove, size: 15),
-                                      ),
+                                // BOTÃO DIMINUIR
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      if (item['qty'] == 1) {
+                                        removerItem(i);
+                                      } else {
+                                        item['qty']--;
+                                      }
+                                    });
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.all(3),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(6),
                                     ),
-
-                                    const SizedBox(width: 10),
-
-                                    Text(
-                                      '${item['qty']}',
-                                      style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
+                                    child: Icon(
+                                      item['qty'] == 1
+                                          ? Icons.delete
+                                          : Icons.remove,
+                                      size: 15,
                                     ),
+                                  ),
+                                ),
 
-                                    const SizedBox(width: 10),
+                                const SizedBox(width: 10),
 
-                                    GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          item['qty']++;
-                                        });
-                                      },
-                                      child: Container(
-                                        padding: const EdgeInsets.all(3),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(6),
-                                        ),
-                                        child: const Icon(Icons.add, size: 15),
-                                      ),
+                                // QUANTIDADE
+                                Text(
+                                  '${item['qty']}',
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+
+                                const SizedBox(width: 10),
+
+                                // BOTÃO AUMENTAR
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      item['qty']++;
+                                    });
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.all(3),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(6),
                                     ),
-                                  ],
+                                    child: const Icon(Icons.add, size: 15),
+                                  ),
                                 ),
                               ],
                             ),
 
-                            trailing: 
-                            Text(
-                                  'R\$ ${(item["preco"] * item["qty"]).toStringAsFixed(2)}',
-                                  style: const TextStyle(
-                                    color: Colors.black87, fontSize: 16,
-                                  ),
-                                ),
+                            trailing: Text(
+                              'R\$ ${(item["preco"] * item["qty"]).toStringAsFixed(2)}',
+                              style: const TextStyle(
+                                color: Colors.black87,
+                                fontSize: 16,
+                              ),
+                            ),
                           ),
                         ),
                       );
@@ -180,46 +201,64 @@ class _CarrinhoState extends State<Carrinho> {
                   ),
                 ),
 
+                // DIVIDER FUNCIONANDO
+                const Divider(
+                  thickness: 6,
+                  color: Colors.black26,
+                ),
+
+                // TÍTULO DA FORMA DE PAGAMENTO
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Row(
+                    children: [
+                      Icon(Icons.payment, color: Colors.grey[700]),
+                      const SizedBox(width: 6),
+                      Text(
+                        'Forma de pagamento',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[800],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
                 Column(
                   children: [
-                    const Divider(
-                      thickness: 6,
-                      color: Colors.black26,
-                    ),
-                    Row(
-                      children: [
-                        Icon(Icons.payment, color: Colors.grey[700],),
-                        Text('Forma de pagamento', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey[800]),),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    Column(
-                        children: [
-                            RadioGroup<TipoPagamento>(
-                           groupValue: tipoEscolhido,
-                            onChanged: (TipoPagamento? value) {
-                            setState(() {
-                            tipoEscolhido = value;
-                                                  });
-                                              },
-          child: const Column(
-            children: <Widget>[
-              ListTile(
-                title: Text('Pagamento no estabelecimento'),
-                leading: Radio<TipoPagamento>(value: TipoPagamento.estab),
-              ),
-              ListTile(
-                title: Text('Pix'),
-                leading: Radio<TipoPagamento>(value: TipoPagamento.pix),
-              ),
-            ],
-          ),
-        ),
-      ], 
-    )
+                    ListTile(
+  title: const Text("Pagamento no estabelecimento"),
+  leading: Radio<TipoPagamento>(
+    value: TipoPagamento.estab,
+    groupValue: tipoEscolhido,
+    onChanged: (value) {
+      setState(() {
+        tipoEscolhido = value!;
+      });
+    },
+  ),
+),
+
+ListTile(
+  title: const Text("Pix"),
+  leading: Radio<TipoPagamento>(
+    value: TipoPagamento.pix,
+    groupValue: tipoEscolhido,
+    onChanged: (value) {
+      setState(() {
+        tipoEscolhido = value!;
+      });
+    },
+  ),
+),
+
                   ],
                 ),
 
+
+                // RODAPÉ (TOTAL + BOTÃO FINALIZAR)
                 Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
@@ -238,27 +277,30 @@ class _CarrinhoState extends State<Carrinho> {
                       Text(
                         'Total: R\$ ${total.toStringAsFixed(2)}',
                         style: const TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       const SizedBox(height: 12),
+
                       GestureDetector(
-                        onTap: finalizarPedido,
+                        onTap: tipoEscolhido == null ? null : () => finalizarPedido(tipoEscolhido!),
                         child: Container(
                           width: double.infinity,
                           height: 55,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(14),
                             gradient: const LinearGradient(
-                              colors: [Color(0xFFF9E14B), Color(0xFFFFA500)],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
+                              colors: [
+                                Color(0xFFF9E14B),
+                                Color(0xFFFFA500),
+                              ],
                             ),
                             boxShadow: [
                               BoxShadow(
-                                color:
-                                    Colors.orangeAccent,
+                                color: Colors.orangeAccent,
                                 blurRadius: 6,
-                                offset: const Offset(0, 4),
+                                offset: Offset(0, 4),
                               ),
                             ],
                           ),

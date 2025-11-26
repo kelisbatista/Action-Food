@@ -1,3 +1,4 @@
+import 'package:action_food/pagamento.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -8,7 +9,7 @@ class PedidoService {
   /// [itens] → lista de itens do carrinho
   /// [total] → valor total do pedido
   Future<String> criarPedido(String nomeEstab,String idEstab
-      ,List<Map<String, dynamic>> itens, double total) async {
+      ,List<Map<String, dynamic>> itens, double total, TipoPagamento tipopgto) async {
     final uid = FirebaseAuth.instance.currentUser!.uid;
     final docPedido = _db.collection('orders').doc();
     
@@ -22,6 +23,7 @@ class PedidoService {
       'createdAt': FieldValue.serverTimestamp(),
       'estabId': idEstab,
       'nomeEstab': nomeEstab,
+      'tipoPagamento': tipopgto.toString(),
       // assuming first item has the establishment ID
     });
 
