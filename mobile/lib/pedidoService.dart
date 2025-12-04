@@ -89,16 +89,4 @@ class PedidoService {
     await atualizarStatus(orderId, 'cancelado');
   }
 
-  /// Salva os dados do pagamento PIX no pedido
-  Future<void> salvarDadosPix(String orderId, Map<String, dynamic> mp) async {
-    try {
-      await _db.collection('orders').doc(orderId).update({
-        'mp_payment': mp,
-      });
-      print('Dados do PIX salvos no pedido $orderId');
-    } catch (e) {
-      print('Erro ao salvar dados do PIX: $e');
-      throw Exception('Não foi possível salvar os dados do PIX.');
-    }
-  }
 }

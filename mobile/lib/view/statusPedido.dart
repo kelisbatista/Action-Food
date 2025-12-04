@@ -11,15 +11,13 @@ class StatusPedido extends StatelessWidget {
   // ------------------ COR DO STATUS ------------------
   Color corDoStatus(String status) {
     switch (status) {
-      case 'criando':
-        return Colors.grey;
       case 'pendente':
         return Colors.orange;
       case 'pago':
         return Colors.green;
       case 'preparando':
         return Colors.blue;
-      case 'pronto para retirar':
+      case 'concluido':
         return Colors.green;
       case 'cancelado':
         return Colors.red;
@@ -39,7 +37,7 @@ class StatusPedido extends StatelessWidget {
         return Icons.check_circle;
       case 'preparando':
         return Icons.kitchen;
-      case 'pronto para retirar':
+      case 'concluido':
         return Icons.shopping_bag;
       case 'cancelado':
         return Icons.cancel;
